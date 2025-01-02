@@ -1,0 +1,26 @@
+[ boardService13 ]
+1. 프로젝트에 사용할 라이브러리들을 생각. 그레이들 의존성
+    spring web, mysql
+
+2. 프로젝트의 MVC 패턴 패키지 구성
+    controller 패키지
+    etc 패키지
+    model 패키지
+        - dao 패키지
+        - dto 패키지
+    AppStart 클래스
+
+3. 데이터베이스 설계
+
+4. 데이터베이스에 따른 DTO 만들기
+    - 주로 데이터베이스 테이블 속성과 유사하게
+
+5. controller, dao 만들기
+    1. 기능 단위 구현 : 게시물쓰기, 게시물전체조회, 게시물개별조회, 게시물수정, 게시물삭제
+
+[ 게시물쓰기 ]
+    매개변수 : 제목 내용, 작성자, 비밀번호    = BoardDto
+    반환값 : 쓰기 성공/실패                  = boolean
+[ 게시물전체 출력 ]
+    매개변수 : X
+    반환값 : 여러개(ArraryList) 게시물(BoardDto) = ArraryList<BoardDto>
