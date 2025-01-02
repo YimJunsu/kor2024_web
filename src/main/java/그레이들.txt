@@ -1,0 +1,20 @@
+- gradle
+[ Gradle ]
+    1. 정의 : 오픈 소스 빌드 자동화 시스템, 즉] 외부 라이브러리들을 자동적으로 설치하고 관리 해준다.
+    2. 실무 : gradle Vs Maven
+    3. 목적 : gradle 이용한 다양한 오픈 소스 라이브러리들을 설치 / 사용
+    4. [ Gradle 프로젝트 생성 ] 주의할점 : 자바 프로젝트가 아님.
+    5. 외부 라이브러리 들을 프로젝트에 설치/관리 하는 방법
+        1) 프로젝트 폴더 내 'build.gradle' 파일 클릭한다.
+        [초기 세팅] https://start.spring.io/
+        2) dependencies{ } 코드 에 추가할 라이브러리들의 gradle 코드 넣어준다.
+            * dependencies : 의존성 뜻 : 현재 프로젝트에 추가할 라이브러리 gradle 코드
+        3) 오픈 소스 gradle 코드 찾기
+            - https//start.io.spring.io/
+            - https://myrepository.com/
+        4) 새로운 의존성 코드가 있을 경우 왼쪽 상단 새로고침(코끼리)
+
+[ 의존성에 추가할 라이브러리 ]
+    1. Spring Web  -> implementation 'org.springframework.boot:spring-boot-starter-web'
+    2. MySQL Driver -> runtimeOnly 'com.mysql:mysql-connector-j'
+
