@@ -63,7 +63,11 @@
                         - 메소드명(@RequestBody 타입 매개변수명) { }
         response 응답
 
-
+    10. HTTP 이용한 통신 라이브러리
+        0. [크롭] talend api, 테스트 용도,
+        1. [JS] Fetch
+        2. [JQUERY] AJAX
+        3. [JS] AXIOS
 
 
 [실습1] spring web에서 post, get, put, delete 메소드를 사용하는 HTTP 통신 주소 만들기

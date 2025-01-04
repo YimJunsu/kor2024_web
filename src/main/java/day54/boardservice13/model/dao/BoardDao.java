@@ -40,11 +40,8 @@ public class BoardDao {
             if (count == 1) {
                 return true;
             } // [5] 삽입된 결과 레코드가 1개 이면 등록 성공 TRUE
-        } catch (Exception e) {
-            System.out.println(e); // [5] 등록 실패
-        }
-        return false;
-    }
+        } catch (Exception e) {System.out.println(e);} // [5] 등록 실패
+            return false;}
 
     // 2. 게시물 전체 조회
     public ArrayList<BoardDto> findAll(){
@@ -72,14 +69,48 @@ public class BoardDao {
 
     // 3. 게시물 개별 조회
     public BoardDto findid(int bno){
-        // 구현 전
-        return null;
-    }
+        try{
+        String sql = "select * from board where bno = ? "; //(1) SQL 작성한다.
+        PreparedStatement ps = conn.prepareStatement(sql); //(2) SQL 기재한다.
+        ps.setInt(1, bno); //(3) 기재된 SQL의 매개변수를 대입한다.
+            ResultSet rs = ps.executeQuery(); //(4) 기재된 SQL실행, 결과를 반환 받는다.
+        if(rs.next()) { //(5) 실행결과에 따른 제어한다.
+            BoardDto boardDto = new BoardDto(
+                    rs.getInt("bno"),
+                    rs.getString("btitle"),
+                    rs.getString("bcontent"),
+                    rs.getString("bdate"),
+                    rs.getString("bwriter"),
+                    null);
+            return boardDto;}
+        } catch (Exception e) {System.out.println(e);} return null;}
 
     // 4. 게시물 수정
-
-
-    // 5. 게시물 삭제
+    public boolean update(BoardDto boardDto){
+        try {
+            String sql = "update board set btitle = ?, bcontent = ? where bno = ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, boardDto.getBtitle());
+            ps.setString(2, boardDto.getBcontent());
+            ps.setInt(3, boardDto.getBno());
+            int count = ps.executeUpdate();
+            if(count == 1) {return true;}
+        } catch (Exception e) {System.out.println(e);}
+        return false;
     }
+    // 5. 게시물 삭제
+    public boolean delete(int bno){
+        try {
+            String sql = "delete from board where bno = ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, bno);
+            int delnum = ps.executeUpdate();
+            if(delnum == 1) {return true;}
+        }catch (Exception e) {System.out.println(e);}
+        return false;}
+
+
+}
+
 
 
