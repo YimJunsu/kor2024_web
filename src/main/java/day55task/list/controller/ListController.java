@@ -2,9 +2,7 @@ package day55task.list.controller;
 
 import day55task.list.model.dao.ListDao;
 import day55task.list.model.dto.ListDto;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 
@@ -19,7 +17,7 @@ public class ListController {
 
     // 쓰기
     @PostMapping("/upload")
-    public boolean upload(ListDto listDto){
+    public boolean upload(@RequestBody ListDto listDto){
         System.out.println("ListController.upload");
         System.out.println("listDto = " + listDto);
         boolean result = ListDao.getInstance().upload(listDto);
@@ -30,6 +28,24 @@ public class ListController {
     @GetMapping("/view")
     public ArrayList<ListDto> viewAll(){
         ArrayList<ListDto> result = ListDao.getInstance().viewAll();
+        return result;
+    }
+
+    // 수정
+    @PutMapping("/update")
+    public boolean update(@RequestBody ListDto listDto){
+        System.out.println("ListController.update");
+        System.out.println("listDto = " + listDto);
+        boolean result = ListDao.getInstance().update(listDto);
+        return result;
+    }
+
+    // 삭제
+    @DeleteMapping("/delete")
+    public boolean delete(@RequestParam int bno){
+        System.out.println("ListController.delete");
+        System.out.println("bno = " + bno);
+        boolean result = ListDao.getInstance().delete(bno);
         return result;
     }
 }

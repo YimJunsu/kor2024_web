@@ -18,7 +18,7 @@ public class ListDao {
     private ListDao() {// ==================== DB 연동 ====================
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/todolist", "root", "1234");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/day55taskdb", "root", "1234");
         } catch (Exception e) {System.out.println(e);}
     }
     public static ListDao getInstance() {return instance;}
@@ -50,5 +50,27 @@ public class ListDao {
                 list.add(listDto);}
         } catch (Exception e){System.out.println(e);}return list;}
 
+    public boolean update(ListDto listDto) {
+        try {
+            String sql = "update todolist set status = ? where bno =?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setBoolean(1, listDto.isStatus());
+            ps.setInt(2, listDto.getBno());
+            int count = ps.executeUpdate();
+            if(count==1){return true;}
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return false;
+    }
 
+    public boolean delete(int bno){
+        try{
+            String sql = "delete from todolist where bno = ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, bno);
+            int delnum = ps.executeUpdate();
+            if(delnum == 1) {return true;}
+        }catch (Exception e){System.out.println(e);}
+    return false;}
 }
