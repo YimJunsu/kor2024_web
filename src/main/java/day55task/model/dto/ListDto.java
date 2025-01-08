@@ -1,4 +1,4 @@
-package day55task.list.model.dto;
+package day55task.model.dto;
 
 public class ListDto {
     //멤버변수

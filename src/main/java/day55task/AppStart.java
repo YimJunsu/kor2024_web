@@ -1,4 +1,4 @@
-package day55task.list;
+package day55task;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

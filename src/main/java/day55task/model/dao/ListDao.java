@@ -1,6 +1,6 @@
-package day55task.list.model.dao;
+package day55task.model.dao;
 
-import day55task.list.model.dto.ListDto;
+import day55task.model.dto.ListDto;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -50,12 +50,11 @@ public class ListDao {
                 list.add(listDto);}
         } catch (Exception e){System.out.println(e);}return list;}
 
-    public boolean update(ListDto listDto) {
+    public boolean update(int bno) {
         try {
-            String sql = "update todolist set status = ? where bno =?";
+            String sql = "update todolist set status = !status where bno =?";
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setBoolean(1, listDto.isStatus());
-            ps.setInt(2, listDto.getBno());
+            ps.setInt(1, bno);
             int count = ps.executeUpdate();
             if(count==1){return true;}
         } catch (Exception e) {

@@ -1,7 +1,7 @@
-package day55task.list.controller;
+package day55task.controller;
 
-import day55task.list.model.dao.ListDao;
-import day55task.list.model.dto.ListDto;
+import day55task.model.dao.ListDao;
+import day55task.model.dto.ListDto;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -33,10 +33,10 @@ public class ListController {
 
     // 수정
     @PutMapping("/update")
-    public boolean update(@RequestBody ListDto listDto){
+    public boolean update(@RequestParam int bno){
         System.out.println("ListController.update");
-        System.out.println("listDto = " + listDto);
-        boolean result = ListDao.getInstance().update(listDto);
+        System.out.println("bno = " + bno);
+        boolean result = ListDao.getInstance().update(bno);
         return result;
     }
 
