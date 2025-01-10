@@ -25,6 +25,8 @@ dependencies {
     // [3] 롬복 라이브러리 의존성
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
+    // [4] 타임리프 의존성
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 }
 
 tasks.named('test') {
