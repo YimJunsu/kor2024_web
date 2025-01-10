@@ -1,4 +1,25 @@
-_print();
+_print()
+
+function _upload(){
+    const contentInput = document.querySelector('.dcontentInput')
+    const content = contentInput.value;
+
+    const list = { content : content, status : false }
+    
+    const option = {
+        method : 'POST',
+        headers : { 'Content-Type' : 'application/json' },
+        body : JSON.stringify(list)
+    }
+    fetch('/upload', option)
+    .then(r=>r.json())
+    .then(data=>{console.log(data)})
+    .catch(e=>{console.log(e)})
+    alert('regist 성공!')
+    _print();
+    return;
+}
+
 function _print(){
     const todoBottom = document.querySelector('.todoBottom');
     fetch('/view')
@@ -21,13 +42,22 @@ function _print(){
 
 }
 
-_update();
 function _update(bno){
     fetch(`/update?bno=${bno}` , {method : 'PUT'})
     .then(r=>r.json)
     .then(d=>console.log(d))
     .catch(e=>console.log(e))
+    alert('변경 성공')
+    _print();
+    return;
+}
 
+function _delete(bno){
+    fetch(`/delete?bno=${bno}` , {method : 'DELETE'})
+    .then(r=>r.json)
+    .then(d=>console.log(d))
+    .catch(e=>console.log(e))
+    alert('삭제 성공')
     _print();
     return;
 }
