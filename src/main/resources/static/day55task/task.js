@@ -19,7 +19,6 @@ function _upload(){
     _print();
     return;
 }
-
 function _print(){
     const todoBottom = document.querySelector('.todoBottom');
     fetch('/view')
@@ -41,7 +40,6 @@ function _print(){
     .catch(e=>console.log(e))
 
 }
-
 function _update(bno){
     fetch(`/update?bno=${bno}` , {method : 'PUT'})
     .then(r=>r.json)
