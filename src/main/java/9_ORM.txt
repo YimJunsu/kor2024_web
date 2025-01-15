@@ -152,11 +152,45 @@
         @Table( name = "테이블명" ) : 엔티티와 매핑된 테이블 정의
         -> 생략할 경우 자동으로 테이블명이 생성
     5. @GeneratedValue( strategy = GenerationType.IDENTITY
-        - auto_increment : mysql의 제약조건중 하나로 자동번호 부여
-
+        - auto_increment : mysql 의 제약조건중 하나로 자동번호 부여
 
 어노테이션 공부방법 : 암기 X -> 노션/velog/티스토리 정리
 
     1. 과제/프로젝트를 통해 상황에 따른 어노테이션 찾아쓰는 습관
 
+[ 엔티티의 생성날짜 와 수정날짜 자동으로 주입 ]
 
+    1. 엔티티 생성, 수정 날짜/시간 필드를 하나의 (BaseTime) 클래스에 선언
+    2. 사용할 엔티티에게 extends BaseTime 상속한다.
+    주요 어노테이션
+    @CreateDate         : 엔티티의 생성 날짜를 자동으로 관리/사용하는 어노테이션
+    @LastModifiedDate   : 엔티티의 마지막 수정 날짜를 자동으로 기록해주는 어노테이션
+    @MappedSuperclass   : 현재클래스는 데이터베이스의 매핑하지 않고 상속받은 엔티티에 속성을 매핑한다.
+        - 해당 클래스는 매핑하지 않는다. 해당 클래스를 상속받은 클래스가 해당 클래스 엔티티의 속성을 매핑한다.
+    @EntityListeners(AuditingEntityListener.class) :
+        - 엔티티리스너 클래스로 엔티티가 수정될때 자동으로 @CreateDate/@LastModifiedDate 속성값의 변화를 감지하고 값 설정
+        - JPA Auditing 기능 활성화
+            - Auditing(감사/실시간감시)
+            - JPA가 실시간으로 엔티티의 변화의 감지를 한다.
+           *** 1. AppStart 클래스위에 JPA Auditing 기능 켠다. ***
+            @EnableJpaAuditing
+* 실무에서는 레코드의 생성과 변경된 날짜/시간 기록을 한다. ( 문제 발생시 원인 찾기위해 )
+
+타입 변환 이유 : entity 는 spring mvc 패턴의 controller 에서 사용 비권장.
+                * 비권장 이유 -> restful Api 관리 담당, service 로직 담당, DB 관리 담당 등등
+                * entity 는 db와 매핑된 자료이므로 중요한 정보를 담고 있다. 그러므로 여러 레이어(구역)에서 사용하면 안전하지 못한다.
+                * [권장] entity 는 service 에서만 사용해라.
+[ DTO ---> entity 변환 ]
+    1. 이유 : controller 에서 DTO를 받아 service 에서는 DTO 를 entity 로 변환 해야한다.
+    2. 왜 ? dto 는 데이터베이스와 매핑 관계가 아니므로 DTO를 entity 변환후 entity 조작해야한다.
+
+[ entity ---> DTO 변환 ]
+    1. 이유 : service 에서 조작한 entity를 controller에게 보내기 위해 변환 해야한다.
+    2. 왜? controller에게 entity를 주면 안된다. 이유 : 분업화
+
+* 분업화
+    Controller : 1. HTTP URL 매핑 2. HTTP 요청과 응답 하는곳 3. 타입변환
+    Service : 비즈니스로직 담당 ( 실질적인 기능의 코드 )
+    Repository : 연동된 엔티티를 조작하는 인터페이스 담당
+    Entity : 데이터베이스 테이블과 연동된 클래스/객체 담당
+    Dto : 데이터 이동객체, V <--DTO--> C <--DTO--> S
