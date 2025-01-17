@@ -18,6 +18,8 @@ public class CategoryEntity extends BaseTime{
     @Column(columnDefinition = "varchar(50)",nullable = false)
     private String cname; // 카테고리명
 
-
-
+    // 카테 고리 -> 상품 , 양방향을 ProductList
+    @OneToMany(mappedBy = "categoryEntity", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @Builder.Default
+    List<ProductEntity> productEntityList = new ArrayList<>();
 }

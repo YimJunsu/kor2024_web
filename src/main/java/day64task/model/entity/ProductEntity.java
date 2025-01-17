@@ -22,5 +22,15 @@ public class ProductEntity extends BaseTime{
     @Column(columnDefinition = "int", nullable = false)
     private int price; // 제품가격
 
+    // 카테리고에서 온거 받기(단방향)
+    @ManyToOne
+    @JoinColumn(name = "cno")
+    private CategoryEntity categoryEntity;
+
+    // 오더로 보내는 양방향 만들기,
+    @OneToMany(mappedBy = "productEntity", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @Builder.Default
+    List<OrderEntity> orderEntityList = new ArrayList<>();
+
 
 }

@@ -18,6 +18,10 @@ public class OrderEntity extends BaseTime{
     @Column(columnDefinition = "int", nullable = false)
     private int pcount;
 
+    // 단방향 Product -> Order로 보냇던걸 받음
+    @ManyToOne
+    @JoinColumn(name = "pno")
+    private ProductEntity productEntity;
 
 
 
