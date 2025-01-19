@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='../../static/day63task/todolist.css'>
+</head>
+<body>
+    
+    <div id="wrap"> <!-- 전체를 감싼 레이아웃/구역 마크업 -->
+        
+        <h2 class="title">내가 해야할 일들</h2> <!-- 제목 -->
+        <div class="todoTop"> <!-- 상단 구역(입력) -->
+            <input class="lcontentInput" type="text" />
+            <button type="button" onclick="_upload()" class="addBtn" > 업로드 </button>
+        </div>
+        <div class="todoBottom"> <!-- 본문 구역 -->
+
+        </div> <!-- 본문 end -->
+
+    </div> <!-- 전체 wrap end-->
+
+    <script src='/day63task/todolist.js'></script>
+</body>
+</html>
